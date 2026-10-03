@@ -12,7 +12,10 @@ from report import write_report
 
 
 def signature(s):
-    return (s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns, s.st_ctime_ns)
+    # On Windows 3.12+, path stat uses creation time for ctime, while
+    # descriptor stat can use change time. Birth time is consistent in both.
+    timestamp = getattr(s, 'st_birthtime_ns', s.st_ctime_ns) if os.name == 'nt' else s.st_ctime_ns
+    return (s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns, timestamp)
 
 
 def is_link(path):
@@ -70,7 +73,8 @@ def digest(path, expected):
         hasher = hashlib.sha256()
         for block in iter(lambda: stream.read(1024 * 1024), b''):
             hasher.update(block)
-        if signature(os.fstat(stream.fileno())) != expected or signature(path.lstat()) != expected or is_link(path):
+        after = os.fstat(stream.fileno())
+        if signature(after) != expected or after.st_ctime_ns != before.st_ctime_ns or signature(path.lstat()) != expected or is_link(path):
             raise OSError('File changed while hashing')
         return hasher.hexdigest()
 
