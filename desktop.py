@@ -13,7 +13,18 @@ def check(values):
     return audit(values['first'], values['second'])
 def demo(): return audit(resource_root() / 'examples/source', resource_root() / 'examples/backup')
 def make_app(window): return App(window, KIND, TITLE, demo, check, validate_output=validate_roots)
-def extra_smoke(): pass
+def extra_smoke():
+    import tempfile
+    with tempfile.TemporaryDirectory() as directory:
+        source, backup = Path(directory) / 'original', Path(directory) / 'copy'
+        source.mkdir(); backup.mkdir()
+        (source / 'note.txt').write_bytes(b'good')
+        (backup / 'note.txt').write_bytes(b'good')
+        assert audit(source, backup)['status'] == 'verified', 'Matching copy was not verified'
+        (backup / 'note.txt').write_bytes(b'bad!')
+        result = audit(source, backup)
+        assert result['status'] == 'attention', 'Changed copy was not detected'
+        assert any(item['status'] == 'mismatch' for item in result['findings'])
 
 
 def self_test(result_path=None):

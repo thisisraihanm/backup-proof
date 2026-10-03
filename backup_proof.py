@@ -39,7 +39,9 @@ def inventory(root, excludes):
                 if is_link(path):
                     issues.append({'path': relative, 'reason': 'Symbolic link or junction not followed'})
                 else:
-                    info = entry.stat(follow_symlinks=False)
+                    # Windows DirEntry.stat() omits file identity. Use the same
+                    # full, non-following metadata API as the hashing checks.
+                    info = path.lstat()
                     if stat.S_ISDIR(info.st_mode):
                         walk(path)
                     elif stat.S_ISREG(info.st_mode):
