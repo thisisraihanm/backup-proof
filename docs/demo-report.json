@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "timestamp": "2026-10-03T06:36:54.707061+00:00",
+  "status": "attention",
+  "summary": "1 matching files; 0 verification gaps. This compares included regular file contents, not a complete recovery test.",
+  "findings": [
+    {
+      "status": "missing",
+      "item": "new-config.txt",
+      "evidence": "Source file has no matching backup path.",
+      "next_step": "Review backup scope/exclusions and copy this file with your backup process."
+    },
+    {
+      "status": "extra",
+      "item": "retained-notes.txt",
+      "evidence": "Backup path does not exist in the current source.",
+      "next_step": "May be retained history; review your retention policy. Nothing is deleted."
+    },
+    {
+      "status": "mismatch",
+      "item": "shift-notes.txt",
+      "evidence": "SHA-256 content or size differs. Matching filenames/timestamps would not establish equality.",
+      "next_step": "Check backup age and intended recovery point before replacing anything."
+    }
+  ],
+  "counts": {
+    "source_files": 3,
+    "backup_files": 3,
+    "matched": 1
+  },
+  "exclusion_patterns": [],
+  "excluded_paths": {
+    "source": [],
+    "backup": []
+  },
+  "manifests": {
+    "source": {
+      "inventory.txt": {
+        "size_bytes": 43,
+        "sha256": "00e0025eded9293f6afff9ab1611345259046eb6c5d84270befea75930b47ba3"
+      },
+      "new-config.txt": {
+        "size_bytes": 55,
+        "sha256": "09187af2fc3214e49a4c94a5fab8c180e5008021242a9418d2c1491fd075910b"
+      },
+      "shift-notes.txt": {
+        "size_bytes": 30,
+        "sha256": "e1680f0ef543afb0f2b88dfc089acfc14b76ca3039db4214ed27f6d75d325586"
+      }
+    },
+    "backup": {
+      "inventory.txt": {
+        "size_bytes": 43,
+        "sha256": "00e0025eded9293f6afff9ab1611345259046eb6c5d84270befea75930b47ba3"
+      },
+      "retained-notes.txt": {
+        "size_bytes": 28,
+        "sha256": "a74425c72928b12457207a69e0bdee22197a7382170f56b049d929741f50e13b"
+      },
+      "shift-notes.txt": {
+        "size_bytes": 31,
+        "sha256": "95e4eaa404bb468fdcdaf144f75b6edb32b590f4aa58e29229b56398d5709c71"
+      }
+    }
+  },
+  "issues": []
+}

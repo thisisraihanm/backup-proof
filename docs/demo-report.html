@@ -1,0 +1,80 @@
+<!doctype html><html lang="en"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Backup Proof</title><style>
+body{font:16px/1.6 system-ui,sans-serif;background:#f5f7fb;color:#16283c;margin:0}
+main{max-width:1100px;margin:40px auto;padding:28px;background:white;border-radius:12px}
+h1{line-height:1.2}.summary{padding:16px;background:#e9f0fa;border-left:4px solid #2865b0}
+table{border-collapse:collapse;width:100%;margin-top:24px}th,td{padding:12px;text-align:left;vertical-align:top;border-bottom:1px solid #d9e2ec;overflow-wrap:anywhere}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}details{margin-top:24px}
+@media(max-width:700px){main{margin:0;padding:16px}table{display:block;overflow-x:auto}}
+</style><main><p>LOCAL OPERATIONS REPORT · 2026-10-03T06:36:54.707061+00:00</p><h1>Backup Proof</h1>
+<p class="summary"><strong>attention</strong> — 1 matching files; 0 verification gaps. This compares included regular file contents, not a complete recovery test.</p>
+<table><thead><tr><th>Status</th><th>Item</th><th>Evidence</th><th>Next step</th></tr></thead><tbody><tr><td>missing</td><td>new-config.txt</td><td>Source file has no matching backup path.</td><td>Review backup scope/exclusions and copy this file with your backup process.</td></tr><tr><td>extra</td><td>retained-notes.txt</td><td>Backup path does not exist in the current source.</td><td>May be retained history; review your retention policy. Nothing is deleted.</td></tr><tr><td>mismatch</td><td>shift-notes.txt</td><td>SHA-256 content or size differs. Matching filenames/timestamps would not establish equality.</td><td>Check backup age and intended recovery point before replacing anything.</td></tr></tbody></table>
+<details><summary>Full evidence (JSON)</summary><pre>{
+  &quot;schema_version&quot;: 1,
+  &quot;timestamp&quot;: &quot;2026-10-03T06:36:54.707061+00:00&quot;,
+  &quot;status&quot;: &quot;attention&quot;,
+  &quot;summary&quot;: &quot;1 matching files; 0 verification gaps. This compares included regular file contents, not a complete recovery test.&quot;,
+  &quot;findings&quot;: [
+    {
+      &quot;status&quot;: &quot;missing&quot;,
+      &quot;item&quot;: &quot;new-config.txt&quot;,
+      &quot;evidence&quot;: &quot;Source file has no matching backup path.&quot;,
+      &quot;next_step&quot;: &quot;Review backup scope/exclusions and copy this file with your backup process.&quot;
+    },
+    {
+      &quot;status&quot;: &quot;extra&quot;,
+      &quot;item&quot;: &quot;retained-notes.txt&quot;,
+      &quot;evidence&quot;: &quot;Backup path does not exist in the current source.&quot;,
+      &quot;next_step&quot;: &quot;May be retained history; review your retention policy. Nothing is deleted.&quot;
+    },
+    {
+      &quot;status&quot;: &quot;mismatch&quot;,
+      &quot;item&quot;: &quot;shift-notes.txt&quot;,
+      &quot;evidence&quot;: &quot;SHA-256 content or size differs. Matching filenames/timestamps would not establish equality.&quot;,
+      &quot;next_step&quot;: &quot;Check backup age and intended recovery point before replacing anything.&quot;
+    }
+  ],
+  &quot;counts&quot;: {
+    &quot;source_files&quot;: 3,
+    &quot;backup_files&quot;: 3,
+    &quot;matched&quot;: 1
+  },
+  &quot;exclusion_patterns&quot;: [],
+  &quot;excluded_paths&quot;: {
+    &quot;source&quot;: [],
+    &quot;backup&quot;: []
+  },
+  &quot;manifests&quot;: {
+    &quot;source&quot;: {
+      &quot;inventory.txt&quot;: {
+        &quot;size_bytes&quot;: 43,
+        &quot;sha256&quot;: &quot;00e0025eded9293f6afff9ab1611345259046eb6c5d84270befea75930b47ba3&quot;
+      },
+      &quot;new-config.txt&quot;: {
+        &quot;size_bytes&quot;: 55,
+        &quot;sha256&quot;: &quot;09187af2fc3214e49a4c94a5fab8c180e5008021242a9418d2c1491fd075910b&quot;
+      },
+      &quot;shift-notes.txt&quot;: {
+        &quot;size_bytes&quot;: 30,
+        &quot;sha256&quot;: &quot;e1680f0ef543afb0f2b88dfc089acfc14b76ca3039db4214ed27f6d75d325586&quot;
+      }
+    },
+    &quot;backup&quot;: {
+      &quot;inventory.txt&quot;: {
+        &quot;size_bytes&quot;: 43,
+        &quot;sha256&quot;: &quot;00e0025eded9293f6afff9ab1611345259046eb6c5d84270befea75930b47ba3&quot;
+      },
+      &quot;retained-notes.txt&quot;: {
+        &quot;size_bytes&quot;: 28,
+        &quot;sha256&quot;: &quot;a74425c72928b12457207a69e0bdee22197a7382170f56b049d929741f50e13b&quot;
+      },
+      &quot;shift-notes.txt&quot;: {
+        &quot;size_bytes&quot;: 31,
+        &quot;sha256&quot;: &quot;95e4eaa404bb468fdcdaf144f75b6edb32b590f4aa58e29229b56398d5709c71&quot;
+      }
+    }
+  },
+  &quot;issues&quot;: []
+}</pre></details>
+<p>Generated locally. Review evidence before making changes.</p></main></html>
