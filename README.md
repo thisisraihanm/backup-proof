@@ -1,5 +1,16 @@
 # Backup Proof
 
+## Open it without commands (Windows)
+
+[**Download the Windows app**](https://github.com/thisisraihanm/backup-proof/releases/latest) → download **BackupProof-Windows.zip** under Assets → **Extract All** → double-click **BackupProof.exe**. Python is included.
+
+Click **Try a safe example** first. Then Use **Choose folder** to select your original files and their backup copy. Click **Check backup**. The tool shows matching, missing, different, and extra files; it does not copy or delete anything.
+
+[Step-by-step beginner guide](START-HERE.md). The screen and report explain the result in plain language. Detailed evidence remains available for IT.
+
+If you downloaded source code with **Code → Download ZIP**, Python 3.11+ with Tk is required; double-click **Start-Windows.cmd** after installing it.
+
+
 **Find missing and different file contents before a file-copy backup is needed.**
 
 A backup job finishes successfully, but its copied files may be old, excluded unexpectedly, or different from the intended recovery point. File count, size, and timestamps alone cannot establish that the data matches.

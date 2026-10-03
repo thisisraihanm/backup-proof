@@ -156,6 +156,7 @@ def main():
         p.error('Both --source and --backup are required')
     try:
         result = audit(args.source, args.backup, args.exclude, args.output)
+        if args.demo: result['demo'] = True
         report = write_report(result, args.output, 'Backup Proof')
         print(f"{result['status'].upper()}: {report}")
         return 0 if result['status'] == 'verified' else (2 if result['status'] == 'incomplete' else 1)
