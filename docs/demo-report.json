@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "timestamp": "2026-10-03T06:36:54.707061+00:00",
+  "timestamp": "2026-10-03T12:51:14.923717+00:00",
   "status": "attention",
   "summary": "1 matching files; 0 verification gaps. This compares included regular file contents, not a complete recovery test.",
   "findings": [
@@ -63,5 +63,6 @@
       }
     }
   },
-  "issues": []
+  "issues": [],
+  "demo": true
 }

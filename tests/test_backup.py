@@ -2,11 +2,21 @@ import os
 from pathlib import Path
 import tempfile
 import unittest
+from types import SimpleNamespace
 from unittest.mock import patch
 import backup_proof as tool
 
 
 class BackupTests(unittest.TestCase):
+    def test_windows_creation_and_change_times_do_not_cause_false_failure(self):
+        common = dict(st_dev=1, st_ino=42, st_size=4, st_mtime_ns=100, st_birthtime_ns=50)
+        path_metadata = SimpleNamespace(**common, st_ctime_ns=50)
+        handle_metadata = SimpleNamespace(**common, st_ctime_ns=150)
+        with patch.object(tool.os, 'name', 'nt'):
+            self.assertEqual(tool.signature(path_metadata), tool.signature(handle_metadata))
+            handle_metadata.st_mtime_ns = 200
+            self.assertNotEqual(tool.signature(path_metadata), tool.signature(handle_metadata))
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
@@ -57,7 +67,7 @@ class BackupTests(unittest.TestCase):
         real_digest = tool.digest
         def changing(path, expected):
             value = real_digest(path, expected)
-            if path.parent == self.source:
+            if path.parent == self.source.resolve():
                 (self.source / 'arrived.txt').write_text('new arrival')
             return value
         with patch.object(tool, 'digest', side_effect=changing):

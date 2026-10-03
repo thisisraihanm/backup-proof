@@ -12,7 +12,10 @@ from report import write_report
 
 
 def signature(s):
-    return (s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns, s.st_ctime_ns)
+    # On Windows 3.12+, path stat uses creation time for ctime, while
+    # descriptor stat can use change time. Birth time is consistent in both.
+    timestamp = getattr(s, 'st_birthtime_ns', s.st_ctime_ns) if os.name == 'nt' else s.st_ctime_ns
+    return (s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns, timestamp)
 
 
 def is_link(path):
@@ -39,7 +42,9 @@ def inventory(root, excludes):
                 if is_link(path):
                     issues.append({'path': relative, 'reason': 'Symbolic link or junction not followed'})
                 else:
-                    info = entry.stat(follow_symlinks=False)
+                    # Windows DirEntry.stat() omits file identity. Use the same
+                    # full, non-following metadata API as the hashing checks.
+                    info = path.lstat()
                     if stat.S_ISDIR(info.st_mode):
                         walk(path)
                     elif stat.S_ISREG(info.st_mode):
@@ -68,7 +73,8 @@ def digest(path, expected):
         hasher = hashlib.sha256()
         for block in iter(lambda: stream.read(1024 * 1024), b''):
             hasher.update(block)
-        if signature(os.fstat(stream.fileno())) != expected or signature(path.lstat()) != expected or is_link(path):
+        after = os.fstat(stream.fileno())
+        if signature(after) != expected or after.st_ctime_ns != before.st_ctime_ns or signature(path.lstat()) != expected or is_link(path):
             raise OSError('File changed while hashing')
         return hasher.hexdigest()
 
@@ -156,6 +162,7 @@ def main():
         p.error('Both --source and --backup are required')
     try:
         result = audit(args.source, args.backup, args.exclude, args.output)
+        if args.demo: result['demo'] = True
         report = write_report(result, args.output, 'Backup Proof')
         print(f"{result['status'].upper()}: {report}")
         return 0 if result['status'] == 'verified' else (2 if result['status'] == 'incomplete' else 1)

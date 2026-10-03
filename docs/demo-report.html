@@ -1,18 +1,25 @@
-<!doctype html><html lang="en"><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Backup Proof</title><style>
-body{font:16px/1.6 system-ui,sans-serif;background:#f5f7fb;color:#16283c;margin:0}
-main{max-width:1100px;margin:40px auto;padding:28px;background:white;border-radius:12px}
-h1{line-height:1.2}.summary{padding:16px;background:#e9f0fa;border-left:4px solid #2865b0}
-table{border-collapse:collapse;width:100%;margin-top:24px}th,td{padding:12px;text-align:left;vertical-align:top;border-bottom:1px solid #d9e2ec;overflow-wrap:anywhere}
-pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}details{margin-top:24px}
-@media(max-width:700px){main{margin:0;padding:16px}table{display:block;overflow-x:auto}}
-</style><main><p>LOCAL OPERATIONS REPORT · 2026-10-03T06:36:54.707061+00:00</p><h1>Backup Proof</h1>
-<p class="summary"><strong>attention</strong> — 1 matching files; 0 verification gaps. This compares included regular file contents, not a complete recovery test.</p>
-<table><thead><tr><th>Status</th><th>Item</th><th>Evidence</th><th>Next step</th></tr></thead><tbody><tr><td>missing</td><td>new-config.txt</td><td>Source file has no matching backup path.</td><td>Review backup scope/exclusions and copy this file with your backup process.</td></tr><tr><td>extra</td><td>retained-notes.txt</td><td>Backup path does not exist in the current source.</td><td>May be retained history; review your retention policy. Nothing is deleted.</td></tr><tr><td>mismatch</td><td>shift-notes.txt</td><td>SHA-256 content or size differs. Matching filenames/timestamps would not establish equality.</td><td>Check backup age and intended recovery point before replacing anything.</td></tr></tbody></table>
-<details><summary>Full evidence (JSON)</summary><pre>{
+body{font:17px/1.6 system-ui,sans-serif;background:#f1f5f9;color:#173144;margin:0}
+main{max-width:980px;margin:32px auto;padding:32px;background:white;border-radius:14px}
+.eyebrow{font-size:13px;letter-spacing:.08em;color:#175e65}h1{line-height:1.15;font-size:32px;margin:12px 0}h2{font-size:19px;margin-bottom:4px}
+.result{padding:22px;border-radius:10px;border-left:6px solid #bc7612;background:#fff7e8}.good{border-color:#218367;background:#ecf8f2}
+.result strong{font-size:25px;line-height:1.25;display:block}.demo{background:#e7eefb;padding:12px;border-radius:8px;font-weight:600}
+.note{color:#536675;font-size:14px}details{margin-top:26px;border-top:1px solid #dce3e8;padding-top:16px}summary{cursor:pointer;font-weight:600}
+table{border-collapse:collapse;width:100%;margin-top:16px}th,td{padding:10px;text-align:left;vertical-align:top;border-bottom:1px solid #dce3e8;overflow-wrap:anywhere}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}.table{overflow:auto}
+@media(max-width:650px){main{margin:0;padding:20px}h1{font-size:27px}.result strong{font-size:22px}}
+@media print{body{background:white}main{margin:0;padding:10px}}
+</style><main><p class="eyebrow">RAIHAN TOOLS / LOCAL REPORT</p><h1>Backup Proof</h1><p class="demo">EXAMPLE REPORT · Fictional data. This is not a check of your own computer or files.</p>
+<section class="result review"><strong>Backup differences need review</strong><p>1 files match. 1 missing, 1 different, 1 extra in the backup.</p></section>
+<h2>What you can do next</h2><p>Review missing or different files with the person responsible for the backup. Extra files may be older copies kept intentionally. Nothing has been copied or deleted.</p>
+<p class="note">Checked at 2026-10-03T12:51:14.923717+00:00. Original files and settings were not changed.</p>
+<p class="note">Reports may contain server or file names. Share with your IT support when needed.</p>
+<details><summary>Details for IT support</summary><p><strong>attention</strong> — 1 matching files; 0 verification gaps. This compares included regular file contents, not a complete recovery test.</p><div class="table">
+<table><thead><tr><th>Status</th><th>Item</th><th>Evidence</th><th>Next step</th></tr></thead><tbody><tr><td>missing</td><td>new-config.txt</td><td>Source file has no matching backup path.</td><td>Review backup scope/exclusions and copy this file with your backup process.</td></tr><tr><td>extra</td><td>retained-notes.txt</td><td>Backup path does not exist in the current source.</td><td>May be retained history; review your retention policy. Nothing is deleted.</td></tr><tr><td>mismatch</td><td>shift-notes.txt</td><td>SHA-256 content or size differs. Matching filenames/timestamps would not establish equality.</td><td>Check backup age and intended recovery point before replacing anything.</td></tr></tbody></table></div>
+<details><summary>Full evidence</summary><pre>{
   &quot;schema_version&quot;: 1,
-  &quot;timestamp&quot;: &quot;2026-10-03T06:36:54.707061+00:00&quot;,
+  &quot;timestamp&quot;: &quot;2026-10-03T12:51:14.923717+00:00&quot;,
   &quot;status&quot;: &quot;attention&quot;,
   &quot;summary&quot;: &quot;1 matching files; 0 verification gaps. This compares included regular file contents, not a complete recovery test.&quot;,
   &quot;findings&quot;: [
@@ -75,6 +82,6 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}details{margin-to
       }
     }
   },
-  &quot;issues&quot;: []
-}</pre></details>
-<p>Generated locally. Review evidence before making changes.</p></main></html>
+  &quot;issues&quot;: [],
+  &quot;demo&quot;: true
+}</pre></details></details></main></html>
