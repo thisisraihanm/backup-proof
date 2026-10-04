@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "timestamp": "2026-10-03T12:51:14.923717+00:00",
+  "timestamp": "2026-10-04T15:25:59.796104+00:00",
   "status": "attention",
   "summary": "1 matching files; 0 verification gaps. This compares included regular file contents, not a complete recovery test.",
   "findings": [
@@ -36,30 +36,30 @@
   "manifests": {
     "source": {
       "inventory.txt": {
-        "size_bytes": 43,
-        "sha256": "00e0025eded9293f6afff9ab1611345259046eb6c5d84270befea75930b47ba3"
+        "size_bytes": 44,
+        "sha256": "c46d9e04618b536b723b353090f451ff6104b51cb1093ebfb5ec7a5bed7fe009"
       },
       "new-config.txt": {
-        "size_bytes": 55,
-        "sha256": "09187af2fc3214e49a4c94a5fab8c180e5008021242a9418d2c1491fd075910b"
+        "size_bytes": 56,
+        "sha256": "d80d1eaa7ad8b24c9a33b20d513f7ac2dc0926216de635ef8561ed03ea497924"
       },
       "shift-notes.txt": {
-        "size_bytes": 30,
-        "sha256": "e1680f0ef543afb0f2b88dfc089acfc14b76ca3039db4214ed27f6d75d325586"
+        "size_bytes": 31,
+        "sha256": "884fcb698be8800fbdbf1fdfe937238d472084ca043fbccdf7cca593afaeb8a0"
       }
     },
     "backup": {
       "inventory.txt": {
-        "size_bytes": 43,
-        "sha256": "00e0025eded9293f6afff9ab1611345259046eb6c5d84270befea75930b47ba3"
+        "size_bytes": 44,
+        "sha256": "c46d9e04618b536b723b353090f451ff6104b51cb1093ebfb5ec7a5bed7fe009"
       },
       "retained-notes.txt": {
-        "size_bytes": 28,
-        "sha256": "a74425c72928b12457207a69e0bdee22197a7382170f56b049d929741f50e13b"
+        "size_bytes": 29,
+        "sha256": "a8cc53858d76b4399cdf5de3754a7c1776e678766e9090db85b6cd2c0789b306"
       },
       "shift-notes.txt": {
-        "size_bytes": 31,
-        "sha256": "95e4eaa404bb468fdcdaf144f75b6edb32b590f4aa58e29229b56398d5709c71"
+        "size_bytes": 32,
+        "sha256": "672ac032dd941c0110fb7415c6da352f09a330b38eed18f12d0963c286ea428b"
       }
     }
   },

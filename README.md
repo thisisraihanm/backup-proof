@@ -1,97 +1,76 @@
 # Backup Proof
 
-## Open it without commands (Windows)
+**Check whether the contents of a file-copy backup match the original files.**
 
-[**Download the Windows app**](https://github.com/thisisraihanm/backup-proof/releases/latest) → download **BackupProof-Windows.zip** under Assets → **Extract All** → double-click **BackupProof.exe**. Python is included.
+A completed backup job does not tell you whether every intended file was copied correctly. Backup Proof compares file contents and explains what needs review.
 
-Click **Try a safe example** first. Then Use **Choose folder** to select your original files and their backup copy. Click **Check backup**. The tool shows matching, missing, different, and extra files; it does not copy or delete anything.
+[Download Windows app](https://github.com/thisisraihanm/backup-proof/releases/latest) · [Start here](START-HERE.md) · [Visual guide](docs/VISUAL-GUIDE.md) · [Technical reference](docs/TECHNICAL-REFERENCE.md)
 
-[Step-by-step beginner guide](START-HERE.md). The screen and report explain the result in plain language. Detailed evidence remains available for IT.
+![Backup Proof architecture](docs/images/architecture.svg)
 
-If you downloaded source code with **Code → Download ZIP**, Python 3.11+ with Tk is required; double-click **Start-Windows.cmd** after installing it.
+## Try it in three steps
 
+1. **Download and open.** On the [release page](https://github.com/thisisraihanm/backup-proof/releases/latest), download **BackupProof-Windows.zip** under Assets, choose **Extract All**, then open **BackupProof.exe**. Python is included.
+2. **Try a safe example.** Click **Try a safe example**. It uses fictional data so you can learn what the results mean first.
+3. **Use your own inputs.** Choose the original folder and a separate backup folder, then click **Check backup**.
 
-**Find missing and different file contents before a file-copy backup is needed.**
+The tool reads and reports; it does not repair settings or copy/delete your files. See the [beginner guide](START-HERE.md) for help opening the unsigned Windows app and choosing the right download.
 
-A backup job finishes successfully, but its copied files may be old, excluded unexpectedly, or different from the intended recovery point. File count, size, and timestamps alone cannot establish that the data matches.
+## See the result before installing
 
-Backup Proof reads each included regular file in the source and backup trees, computes SHA-256, and produces an actionable local report. It never repairs, copies, or deletes data.
+![Backup Proof demo report overview](docs/images/report-overview.png)
 
-## Try the demo
+*Rendered from the actual HTML report with fictional demo data. This is a report preview, not a production result or Windows desktop screenshot.*
 
-Requires Python 3.11 or newer. No pip packages. Run from this repository directory:
+| Example item | Result | What you are seeing |
+|---|---|---|
+| inventory.txt | Matching | Source and backup contain the same file contents. |
+| new-config.txt | Missing | The source path has no corresponding backup file. |
+| shift-notes.txt | Different | The backup contains different contents. |
+| retained-notes.txt | Extra | The backup contains a file absent from the current source; it may be retained history. |
+
+[See the detailed report image and decision flowchart →](docs/VISUAL-GUIDE.md)
+
+## What happens inside
+
+```mermaid
+flowchart TD
+    A["Choose separate source and backup folders"] --> B["Inventory and hash included regular files"]
+    B --> C["Recheck inventories and collect findings"]
+    C --> D{"Any verification gaps?"}
+    D -->|Yes| E["Incomplete: resolve gaps and rerun"]
+    D -->|No| F{"Any missing, different or extra files?"}
+    F -->|Yes| G["Attention: review the differences"]
+    F -->|No| H["Verified: included contents match"]
+    H --> I["Perform a separate restore and application test"]
+```
+
+## Run the offline demo from source
+
+Requires **Python 3.11+**. No pip packages are needed for the application. From this repository directory:
 
 ```sh
 python backup_proof.py --demo
 ```
 
-Open `reports/backup-proof.html`. The tiny fictional trees include a matching file, a missing file, outdated contents, and retained history. Exit code **1** is expected for this deliberately imperfect backup.
+Open `reports/backup-proof.html`. The neighboring JSON file contains the detailed evidence. Exit code **1** is expected because the fictional demo deliberately includes findings.
 
-[Included fictional example report](docs/demo-report.html)
+For the source desktop interface, install Python with Tcl/Tk and open `Start-Windows.cmd` on Windows, or run `python3 desktop.py` on Linux/macOS. Windows settings collection is available only on Windows.
 
-## Audit your own file-copy backup
+## Scope and evidence
 
-Use quiet data or a mounted point-in-time snapshot. Choose non-overlapping directory trees and put reports outside both:
+Checks included regular file contents only. It does not validate permissions, application consistency, or recoverability. Busy files, unreadable data and other gaps prevent a complete verification.
 
-```powershell
-python .\backup_proof.py --source "D:\LabSource" --backup "E:\LabBackup" --output ".\reports\lab-audit"
-```
+- [Visual walkthrough](docs/VISUAL-GUIDE.md): architecture, decisions and report previews.
+- [Lab exercise](WALKTHROUGH.md): reproduce and explain the behavior.
+- [Technical reference](docs/TECHNICAL-REFERENCE.md): commands, interpretation, limitations and official references.
+- [Example HTML](docs/demo-report.html) and [JSON evidence](docs/demo-report.json): fictional demonstration output. Download the HTML to view it in a browser.
+- [Automated checks](https://github.com/thisisraihanm/backup-proof/actions): inspect the run and commit before drawing conclusions.
 
-```sh
-python backup_proof.py --source /mnt/lab-source --backup /mnt/lab-backup --output reports/lab-audit
-```
+Run the existing test suite with `python -m unittest discover -s tests -v`.
 
-Compare the **intended recovery point**, not a busy live source against yesterday's backup. Otherwise legitimate changes will look like discrepancies. This tool compares unencrypted, directly accessible regular files; backup archives, encrypted repositories, compressed proprietary formats, and database-native backups require their own verification/restore tools.
+## Learning focus
 
-Optional exclusions apply equally to both trees:
+Filesystem administration, backup verification, SHA-256 hashing, exception handling and evidence-based reporting.
 
-```sh
-python backup_proof.py --source lab-source --backup lab-backup --exclude "*.tmp" --exclude "cache" --output reports/lab-audit
-```
-
-Exclusions are case-sensitive glob matches on forward-slash relative paths. `cache` skips that exact directory and its descendants; `*.tmp` matches matching paths including nested ones under Python's `fnmatchcase` semantics. Every excluded path and pattern is disclosed in the JSON. A directory excluded at its root is listed once; its contents are not enumerated or audited.
-
-## Read the evidence
-
-| Finding | What it establishes | What to do |
-|---|---|---|
-| Missing | A source path has no matching backup path | Review backup scope and the intended recovery point |
-| Mismatch | SHA-256 or file size differs | Check age, consistency, and content before replacing anything |
-| Extra | Backup has a path absent from current source | May be retained history; review policy rather than deleting it |
-| Unverified | Permission, changing data, links, or another gap prevented full verification | Resolve the gap and rerun |
-| Verified | Included regular file paths and contents matched in this audit | Follow with a separate restore drill and application test |
-
-An empty source, unreadable file, changing tree, symbolic link/junction, case-colliding filename, or source/backup hard link cannot produce a full `verified` result. The default is a strict file-tree comparison: extras require review even if all source files match.
-
-## Why full hashing?
-
-Two files can have equal sizes and timestamps yet different contents. Full SHA-256 comparison catches that condition; sampling could miss corruption elsewhere in a file. File reads use bounded 1 MiB chunks rather than loading entire files into memory. The manifests record size and hash for each successfully read file.
-
-The tool checks metadata around hashing and inventories both trees again afterward. Changes invalidate completeness. This helps catch concurrent writes, but it is not an atomic snapshot and cannot defeat all concurrent or adversarial filesystem changes.
-
-## Limits that matter
-
-- File contents only: no ACLs, ownership, NTFS alternate data streams, extended attributes, directory metadata, or empty-directory verification.
-- No database/PST/application-consistency guarantee. Quiesce applications or use approved snapshot/native backup tools. A byte-identical live database copy can still be unusable.
-- No restore simulation, recovery-time estimate, immutable storage check, encryption check, or independent off-site storage proof.
-- Full reads can be expensive. Time is approximately the time to read both included trees; run a small lab first and schedule production audits appropriately.
-- Hashes are compared with the current source, not a signed trusted manifest. An unintended change replicated into both trees can match.
-- No root directory paths are embedded in reports, but relative filenames and hashes can still be confidential.
-
-## Validate and learn
-
-```sh
-python -m unittest discover -s tests -v
-```
-
-Tests cover equal-size/equal-timestamp corruption, missing/extra files, excluded scope, empty input, unreadable data, concurrent additions, overlapping roots, symlinks, hard links, and case collisions. Tests that require unsupported filesystem features are skipped explicitly on that platform.
-
-See [WALKTHROUGH.md](WALKTHROUGH.md) for a lab. GitHub Actions is configured for Windows/Linux and Python 3.11/3.12; remote results are confirmed only after execution.
-
-## References
-
-- [Python hashlib documentation](https://docs.python.org/3/library/hashlib.html)
-- [Python filesystem/stat documentation](https://docs.python.org/3/library/os.html)
-- [Python glob matching semantics](https://docs.python.org/3/library/fnmatch.html)
-
-MIT licensed. Initial implementation prepared with AI assistance for Raihan Mahmud's learning portfolio. No production deployment or recovery success is claimed.
+MIT licensed. Prepared with AI assistance for Raihan Mahmud's learning portfolio. No production deployment, business impact or operational recovery success is claimed.

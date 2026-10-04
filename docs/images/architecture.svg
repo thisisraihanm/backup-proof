@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="590" viewBox="0 0 1280 590" role="img" aria-labelledby="title desc">
+<title id="title">Backup Proof architecture</title>
+<desc id="desc">Inputs, processing and evidence outputs. The accompanying visual guide describes the complete workflow.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7893ab"/></marker></defs>
+<rect width="1280" height="590" rx="20" fill="#0c1b2b"/>
+<text x="60" y="55" fill="#38dbc0" font-family="Arial,sans-serif" font-size="15" letter-spacing="3">FILE INTEGRITY</text>
+<text x="60" y="104" fill="#f2f6fb" font-family="Arial,sans-serif" font-size="38" font-weight="700">Backup Proof / how it works</text>
+<path d="M350 240.0 C390 240.0 385 330.0 425 330.0" fill="none" stroke="#7893ab" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M350 410.0 C390 410.0 385 330.0 425 330.0" fill="none" stroke="#7893ab" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M780 330.0 C820 330.0 820 240.0 860 240.0" fill="none" stroke="#7893ab" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M780 330.0 C820 330.0 820 410.0 860 410.0" fill="none" stroke="#7893ab" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="60" y="185" width="290" height="110" rx="12" fill="#142b40" stroke="#36516b"/>
+<rect x="60" y="202" width="4" height="76" rx="2" fill="#38dbc0"/>
+<text x="80" y="218" fill="#f2f6fb" font-family="Arial,sans-serif" font-size="23" font-weight="700">Original folder</text>
+<text x="80" y="245" fill="#b9cbdd" font-family="Arial,sans-serif" font-size="16">Included regular files</text>
+<rect x="60" y="355" width="290" height="110" rx="12" fill="#142b40" stroke="#36516b"/>
+<rect x="60" y="372" width="4" height="76" rx="2" fill="#38dbc0"/>
+<text x="80" y="388" fill="#f2f6fb" font-family="Arial,sans-serif" font-size="23" font-weight="700">Backup folder</text>
+<text x="80" y="415" fill="#b9cbdd" font-family="Arial,sans-serif" font-size="16">Separate file-copy backup</text>
+<rect x="425" y="265" width="355" height="130" rx="12" fill="#142b40" stroke="#36516b"/>
+<rect x="425" y="282" width="4" height="96" rx="2" fill="#38dbc0"/>
+<text x="445" y="298" fill="#f2f6fb" font-family="Arial,sans-serif" font-size="23" font-weight="700">Content audit</text>
+<text x="445" y="325" fill="#b9cbdd" font-family="Arial,sans-serif" font-size="16">Inventory → full SHA-256 reads</text>
+<text x="445" y="348" fill="#b9cbdd" font-family="Arial,sans-serif" font-size="16">Recheck both trees for changes</text>
+<rect x="860" y="185" width="350" height="110" rx="12" fill="#142b40" stroke="#36516b"/>
+<rect x="860" y="202" width="4" height="76" rx="2" fill="#38dbc0"/>
+<text x="880" y="218" fill="#f2f6fb" font-family="Arial,sans-serif" font-size="23" font-weight="700">HTML report</text>
+<text x="880" y="245" fill="#b9cbdd" font-family="Arial,sans-serif" font-size="16">Plain-language findings</text>
+<text x="880" y="268" fill="#b9cbdd" font-family="Arial,sans-serif" font-size="16">Matching, missing, different, extra</text>
+<rect x="860" y="355" width="350" height="110" rx="12" fill="#142b40" stroke="#36516b"/>
+<rect x="860" y="372" width="4" height="76" rx="2" fill="#38dbc0"/>
+<text x="880" y="388" fill="#f2f6fb" font-family="Arial,sans-serif" font-size="23" font-weight="700">JSON evidence</text>
+<text x="880" y="415" fill="#b9cbdd" font-family="Arial,sans-serif" font-size="16">File sizes, hashes and gaps</text>
+<text x="880" y="438" fill="#b9cbdd" font-family="Arial,sans-serif" font-size="16">Exclusions remain visible</text>
+<text x="60" y="549" fill="#38dbc0" font-family="Arial,sans-serif" font-size="17">READ-ONLY AUDIT  •  File contents only  •  A separate restore test is still required</text></svg>

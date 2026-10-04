@@ -1,0 +1,9 @@
+flowchart TD
+    A["Choose separate source and backup folders"] --> B["Inventory and hash included regular files"]
+    B --> C["Recheck inventories and collect findings"]
+    C --> D{"Any verification gaps?"}
+    D -->|Yes| E["Incomplete: resolve gaps and rerun"]
+    D -->|No| F{"Any missing, different or extra files?"}
+    F -->|Yes| G["Attention: review the differences"]
+    F -->|No| H["Verified: included contents match"]
+    H --> I["Perform a separate restore and application test"]
